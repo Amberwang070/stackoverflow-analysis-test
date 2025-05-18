@@ -1,0 +1,46 @@
+# Basic Quality tests
+version: 2
+
+models:
+  - name: stg_stackoverflow__posts
+    description: "Cleaned posts data"
+    columns:
+      - name: post_id
+        description: "Primary key"
+        tests:
+          - unique
+          - not_null
+          - valid_id_range
+      - name: post_type_id
+        tests:
+          - not_null
+          - accepted_values:
+              values: [1, 2]
+      - name: view_count
+        description: "Number of views"
+        tests:
+          - not_null
+          - positive_value
+      - name: created_at
+        description: "Post creation timestamp"
+        tests:
+          - not_null
+          - valid_timestamp
+
+  - name: stg_stackoverflow__users
+    description: "Cleaned users data"
+    columns:
+      - name: user_id
+        tests:
+          - unique
+          - not_null
+          - valid_id_range
+
+  - name: stg_stackoverflow__comments
+    description: "Cleaned comments data"
+    columns:
+      - name: comment_id
+        tests:
+          - unique
+          - not_null
+          - valid_id_range
